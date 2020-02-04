@@ -1,0 +1,11 @@
+setwd("E://data science//Exploratory data analysis//Week1")
+library(data.table)
+data<-fread("household_power_consumption.txt", na.strings = "?")
+rdata<-data[data$Date=="1/2/2007" | data$Date=="2/2/2007",]
+png(filename = "plot3.png")
+datetime <- strptime(paste(rdata$Date, rdata$Time, sep=" "), "%d/%m/%Y %H:%M:%S")
+plot(datetime,rdata$Sub_metering_1, type = "l",ylab="Energy sub metering",xlab = "")
+lines(datetime,rdata$Sub_metering_2,type = "l",col="red")
+lines(datetime,rdata$Sub_metering_3,type = "l",col="blue")
+legend("topright", legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),col=c("black","red","blue") , lwd=1)
+dev.off()
